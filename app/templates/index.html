@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+    <form action="{{url_for('main.index')}}" method="POST">
+        <input placeholder="say hello" type="text" name="body">
+        <button type="submit">make It Live</button>
+    </form>
+    <h1>current User is {{g.user.username}}</h1>
+    {% if posts%}
+        {% for post in posts%}
+            {% include '_post.html' %}
+        {% endfor %}
+    {% endif%}
+{% endblock %}

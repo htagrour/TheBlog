@@ -1,0 +1,15 @@
+{% extends "base.html"%}
+{% block content%}
+    <h1>{{user.username}}</h1>
+    <p> followers : {{user.follower_count}} followed : {{user.followed_count}}</p>
+    {% if g.user.username == user.username %}
+        <a href="{{url_for('main.edit_profile')}}">Edite profile</a>
+    {% elif  g.user.is_following(user.id) %}
+        <a href="{{url_for('main.unfollow', username = user.username)}}">Unfollow</a>
+    {% else %}
+        <a href="{{url_for('main.follow', username = user.username)}}">follow</a>
+    {% endif %}
+    {% for post in posts %}
+        <p>{{post['body']}}</p>
+    {%endfor%}
+{% endblock%}

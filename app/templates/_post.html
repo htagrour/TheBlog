@@ -1,0 +1,16 @@
+
+<table class="table table-hover">
+    <tr>
+        <td>
+            <a href="{{ url_for('main.user', username=post['author']) }}">
+                {{ post['author'] }}
+            </a>
+            <br>
+            {{ post['body']}}
+            <br>
+            {{post['Likes']}} Like
+            <br>
+            <a href="{{url_for('main.like_post', post_id = post['id'])}}">**like**</a>
+        </td>
+    </tr>
+</table>
