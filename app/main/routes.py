@@ -98,5 +98,6 @@ def unfollow(username):
 @bp.route('/like_post/<post_id>', methods = ['GET', 'POST'])
 @login_req
 def like_post(post_id):
-    db.add_like(post_id, g.user.id)
+    if (not g.user.is_like):
+        db.add_like(post_id, g.user.id)
     return redirect (url_for('main.index'))

@@ -118,13 +118,22 @@ class database():
     @staticmethod
     def add_like(post_id, user_id):
         cursor = g.dbconx.cursor()
-        cursor.execute("""INSERT INTO Likes (post_id, user_id)
-                VALUES(%s, %s)""", (post_id, user_id))
-        g.dbconx.commit()
-        cursor.close()
+        try:
+            cursor.execute("""INSERT INTO Likes (post_id, user_id)
+                    VALUES(%s, %s)""", (post_id, user_id))
+        except MySQLdb.Error as e:
+            print(e)
+            return None
+        try:
+            g.dbconx.commit()
+        except MySQLdb.Error as e:
+            print(e)
+            return None
+        finally:
+            cursor.close()
     
     @staticmethod
-    def is_following(user_id, post_id):
+    def is_like(user_id, post_id):
         cursor = g.dbconx.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute("""SELECT * FROM Likes WHERE user_id = %s
                         AND post_id = %s""",(user_id, post_id))

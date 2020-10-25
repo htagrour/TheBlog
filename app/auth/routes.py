@@ -5,7 +5,7 @@ from app.database import database as db
 from flask import request, redirect, url_for, render_template, flash,\
     session , make_response, g
 from app.auth.form_validation import Validation
-import pyfirmata
+#import pyfirmata
 import time
 from app.auth.email import send_password_reset
 from app.main.routes import not_login_req, login_req
