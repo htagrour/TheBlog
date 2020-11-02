@@ -1,24 +1,12 @@
-FROM python:3.7-alpine
-
-RUN adduser -D myblog
-
-WORKDIR /home/myblog
+FROM python
 
 COPY requirements.txt requirements.txt
-RUN apk add python-dev default-libmysqlclient-dev libssl-dev
-RUN python -m venv venv
-RUN venv/bin/pip install -r requirements.txt
-RUN venv/bin/pip install gunicorn
-
-COPY app app
-COPY migrations migrations
-COPY myblog.py config.py boot.sh ./
-RUN chmod +x boot.sh
-
-ENV FLASK_APP myblog.py
-
-RUN chown -R myblog:myblog ./
-USER myblog
-
+RUN mkdir my_blog
+COPY my_blog.py /my_blog/my_blog.py
+COPY app /my_blog/app
+COPY db/database.sql  database.sql
+COPY boot.sh boot.sh
+RUN apt update
+RUN apt install mariadb-server -y
 EXPOSE 5000
-ENTRYPOINT ["./boot.sh"]
+CMD sh boot

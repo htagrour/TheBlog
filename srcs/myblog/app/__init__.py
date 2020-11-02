@@ -1,6 +1,6 @@
 from flask import Flask
 from config import Config
-from flask_mysqldb import MySQL
+from flask_mysql import MySQL
 from flask_mail import Mail
 
 
