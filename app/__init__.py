@@ -1,6 +1,6 @@
 from flask import Flask
 from config import Config
-from flask_mysql import MySQL
+from flask_mysqldb import MySQL
 from flask_mail import Mail
 
 
@@ -20,4 +20,3 @@ def create_app(config_class = Config):
     from app.errors import bp as errors_bp
     app.register_blueprint(errors_bp)
     return app
-
